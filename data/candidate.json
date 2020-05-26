@@ -1,0 +1,26 @@
+{
+  "nextId": 5,
+  "profiles": [
+    {
+      "first_name": "Feridun",
+      "last_name": "Akyol",
+      "e-mail": "feridunakyol34@gmail.com",
+      "tel": "0486 05-45-27",
+      "id": 1
+    },
+    {
+      "first_name": "Ayse",
+      "last_name": "Akyol",
+      "e-mail": "ayseakyol22309@gmail.com",
+      "tel": "0486 05-45-27",
+      "id": 2
+    },
+    {
+      "first_name": "hayreddin",
+      "last_name": "Akyol",
+      "e-mail": "hayreddin@gmail.com",
+      "tel": "0486 05-45-27",
+      "id": 3
+    }
+  ]
+}
