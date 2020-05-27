@@ -5,7 +5,7 @@ const tv4 = require('tv4');
 
 const PROFILES_SCHEMA = require('../data/profile-schema.json');
 const DATA_PATH = path.join(__dirname, '..', 'data', 'candidate.json');
-console.log(DATA_PATH);
+//console.log(DATA_PATH);
 
 const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
@@ -14,7 +14,8 @@ const controllers = {
   create: async (req, res) => {
 
     const newProfile = req.body
-
+    console.log(newProfile);
+    
     try {
       const profilesDataString = await readFile(DATA_PATH, 'utf-8');
       const profilesData = JSON.parse(profilesDataString);
@@ -39,12 +40,13 @@ const controllers = {
       }
 
       profilesData.profiles.push(newProfile);
-
+      console.log(profilesData.profiles);
       const newProfileDataString = JSON.stringify(profilesData, null, '  ');
 
       await writeFile(DATA_PATH, newProfileDataString);
-
-      res.json(newProfile);
+      console.log(newProfile);
+      
+      res.redirect('/');
 
     } catch (err) {
       console.log(err);
@@ -63,7 +65,7 @@ const controllers = {
       const profilesDataString = await readFile(DATA_PATH, 'utf-8');
       const profilesData = JSON.parse(profilesDataString);
 
-      res.json(profilesData.profiles);
+      res.send(profilesData.profiles);
 
     } catch (err) {
       console.log(err)
@@ -77,14 +79,14 @@ const controllers = {
     }
   },
   readOne: async (req, res) => {
-    const idToUpdateStr = req.params.id;
+    const idToUpdateStr = req.body.id;
     const idToUpdate = Number(idToUpdateStr);
 
     try {
       const profilesDataString = await readFile(DATA_PATH, 'utf-8');
       const profilesData = JSON.parse(profilesDataString);
       const selectedProfile = profilesData.profiles
-        .find(profile => profile.id === idToUpdate);
+        .find(profile => profile.id == idToUpdate);
 
       res.json(selectedProfile);
 
@@ -100,7 +102,7 @@ const controllers = {
     }
   },
   update: async (req, res) => {
-    const idToUpdateStr = req.params.id;
+    const idToUpdateStr = req.body.id;
     const idToUpdate = Number(idToUpdateStr);
 
     const newProfile = req.body
@@ -125,7 +127,7 @@ const controllers = {
       const profilesData = JSON.parse(profilesDataString);
 
       const entryToUpdate = profilesData.profiles
-        .find(profile => profile.id === idToUpdate);
+        .find(profile => profile.id == idToUpdate);
 
       if (entryToUpdate) {
         const indexOfProfile = profilesData.profiles
@@ -136,7 +138,7 @@ const controllers = {
 
         await writeFile(DATA_PATH, newProfileDataString);
 
-        res.json(newProfile);
+        res.redirect("/");
       } else {
         res.json(`no entry with id ${idToUpdate}`);
       }
@@ -153,26 +155,28 @@ const controllers = {
     }
   },
   delete: async (req, res) => {
-    const idToDeleteStr = req.params.id;
+    const idToDeleteStr = req.body.id;
     const idToDelete = Number(idToDeleteStr);
+    console.log(idToDelete);
+    
 
     try {
       const profilesDataString = await readFile(DATA_PATH, 'utf-8');
       const profilesData = JSON.parse(profilesDataString);
 
       const entryToDelete = profilesData.profiles
-        .find(profile => profile.id === idToDelete);
+        .find(profile => profile.id == idToDelete);
 
       if (entryToDelete) {
 
         profilesData.profiles = profilesData.profiles
-          .filter(profile => profile.id !== entryToDelete.id);
+          .filter(profile => profile.id != entryToDelete.id);
 
         const newProfileDataString = JSON.stringify(profilesData, null, '  ');
 
         await writeFile(DATA_PATH, newProfileDataString);
 
-        res.json(entryToDelete);
+        res.redirect("/");
       } else {
         res.json(`no entry with id ${idToUpdate}`);
       }
@@ -187,7 +191,10 @@ const controllers = {
 
       next(err);
     }
+    
   },
 };
+
+
 
 module.exports = controllers;
