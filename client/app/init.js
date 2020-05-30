@@ -11,14 +11,21 @@ export const init = async () => {
     li.textContent = profileID +' '+ profileName + ' ' + profileLastName;
      ul.appendChild(li);
    }
-  const Allbutton = document.createElement('button');
-  Allbutton.textContent = 'all APPLICANTS' ;
-  Allbutton.classList.add('btn');
-  Allbutton.classList.add('btn-outline-primary');
-  Allbutton.classList.add('btn-block');
-  const div= document.getElementById('output');
-  div.appendChild(Allbutton);
-  div.appendChild(ul);
+  const divEl = document.getElementById('output');
+  divEl.classList.add('d-block');
+  divEl.appendChild(ul);
+
+   const ShowBtn = document.getElementById("showAll");
+    ShowBtn.addEventListener("click", function(){
+      if ($("#output").hasClass('d-none')){
+        $("#output").removeClass('d-none');
+        $("#output").addClass('d-block');
+      }
+      else if ($("#output").hasClass('d-block')) {
+        $("#output").removeClass('d-block');
+        $("#output").addClass('d-none');
+      }
+    })
 }
 
 

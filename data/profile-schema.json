@@ -3,37 +3,47 @@
   "description": "Definition of input to create user profile",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "number"
-    },
-    "first_name": {
-      "type": "string"
-    },
-    "last_name": {
-      "type": "string"
-    },
-    "birth": {
-      "type": "object",
-      "required": [
-        "date",
-        "place"
-      ],
-      "properties": {
-        "date": {
-          "type": "string"
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "e-mail": {
+            "type": "string",
+            "format": "email"
+          },
+          "birth": {
+            "type": "object",
+            "required": [
+              "date",
+              "place"
+            ],
+            "properties": {
+              "date": {
+                "type": "string"
+              },
+              "place": {
+                "type": "string"
+              }
+            }
+          }
         },
-        "place": {
-          "type": "string"
-        }
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "e-mail"
+        ]
       }
-    },
-    "accepting_friend_requests": {
-      "type": "boolean"
     }
-  },
-  "required": [
-    "id",
-    "first_name",
-    "last_name"
-  ]
+  }
 }
