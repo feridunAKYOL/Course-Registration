@@ -4,7 +4,7 @@ const fs = require('fs');
 const tv4 = require('tv4');
 
 const PROFILES_SCHEMA = require('../data/profile-schema.json');
-const DATA_DIR = path.join(__dirname, '..', 'data/courses.json');
+const DATA_PATH = path.join(__dirname, '..', 'data', 'candidate.json');
 //console.log(DATA_PATH);
 
 const readFile = util.promisify(fs.readFile)
